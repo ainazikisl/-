@@ -1,0 +1,29 @@
+import re
+
+def calculate(expression):
+    try:
+        # Проверяем соответствие формату
+        if not re.match(r'^\d+\s*[\+\-\*/]\s*\d+\s*[\+\-\*/]\s*\d+$', expression):
+            raise ValueError("Некорректный формат выражения")
+
+        # Извлекаем числа и операторы
+        numbers = re.findall(r'\d+', expression)
+        operators = re.findall(r'[\+\-\*/]', expression)
+
+        # Преобразуем строки в числа
+        a, b, c = map(int, numbers)
+        
+        # Выполняем операции
+        result = eval(f"{a}{operators[0]}{b}{operators[1]}{c}")
+        return result
+    except ValueError as e:
+        print(e)
+        exit()
+
+def main():
+    expression = input("Введите выражение: ")
+    result = calculate(expression)
+    print("Результат:", result)
+
+if __name__ == "__main__":
+    main()

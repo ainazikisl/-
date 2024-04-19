@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class Calculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Запрос ввода выражения
+        System.out.print("Введите арифметическое выражение: ");
+        String expression = scanner.nextLine();
+
+        try {
+            // Разделение выражения на числа и операторы
+            String[] tokens = expression.split("\\s+");
+            double num1 = Double.parseDouble(tokens[0]);
+            char operator = tokens[1].charAt(0);
+            double num2 = Double.parseDouble(tokens[2]);
+
+            // Выполнение операции в зависимости от оператора
+            double result = switch (operator) {
+                case '+' -> num1 + num2;
+                case '-' -> num1 - num2;
+                case '*' -> num1 * num2;
+                case '/' -> num1 / num2;
+                default -> throw new IllegalArgumentException("Неправильный оператор: " + operator);
+            };
+
+            // Вывод результата
+            System.out.println("Результат: " + result);
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+}
